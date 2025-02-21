@@ -2,7 +2,6 @@ mod api;
 mod websocket;
 mod db;
 mod data_structs;
-use websocket::start_ws;
 use websocket::start_ws_trades;
 use sqlx::postgres::PgPoolOptions;
 use dotenvy::dotenv;
@@ -58,7 +57,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let pool = Arc::new(pool);
 
-    start_ws(Arc::clone(&pool)).await;
     start_ws_trades(Arc::clone(&pool)).await;
 
     Ok(())

@@ -23,10 +23,12 @@ pub struct Kline {
 
 #[derive(Debug)]
 pub struct RecentTrade {
-    pub tid: String,      // id транзакции
-    pub pair: String,     // название валютной пары (как у нас)
-    pub price: String,    // цена транзакции
-    pub amount: String,   // объём транзакции в базовой валюте
-    pub side: String,     // как биржа засчитала эту сделку (buy или sell)
-    pub timestamp: i64,   // время UTC UnixNano
+    pub tid: String,
+    pub pair: String,
+    pub price: String,
+    pub amount: String,
+    pub quantity: String,
+    pub side: String,
+    pub create_time: i64,
+    pub timestamp: i64,
 }

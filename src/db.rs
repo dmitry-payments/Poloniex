@@ -55,21 +55,24 @@ pub async fn insert_candles(pool: &PgPool, candles: Vec<Kline>) -> Result<(), sq
 }
 
 pub async fn insert_trade(pool: &PgPool, trade: RecentTrade) -> Result<(), Error> {
+
     let query = "
-        INSERT INTO trades (tid, pair, price, amount, side, time_stamp)
-        VALUES ($1, $2, $3, $4, $5, $6)
-        ON CONFLICT (tid) DO NOTHING;
+    INSERT INTO trades (tid, pair, amount, side, quantity, create_time, price, time_stamp)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    ON CONFLICT (tid) DO NOTHING;
     ";
 
     sqlx::query(query)
-        .bind(trade.tid)
-        .bind(trade.pair)
-        .bind(trade.price)
-        .bind(trade.amount)
-        .bind(trade.side)
-        .bind(trade.timestamp)
-        .execute(pool)
-        .await?;
+    .bind(trade.tid)       
+    .bind(trade.pair)       
+    .bind(trade.amount)    
+    .bind(trade.side)  
+    .bind(trade.quantity)
+    .bind(trade.create_time)
+    .bind(trade.price)
+    .bind(trade.timestamp)
+    .execute(pool)
+    .await?;
 
     Ok(())
 }
